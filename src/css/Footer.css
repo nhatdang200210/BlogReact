@@ -1,0 +1,21 @@
+.footer{
+    width: 100%;
+    margin: 0rem 0 5rem;
+    margin: 1rem 0 4rem;
+
+    border: 1.5px dashed rgb(111, 186, 227);
+    text-align: center;
+}
+
+.footer-text{
+    
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+
+.footer-img{
+    width: 50%;
+    margin: 0 0 0 44rem;
+}
