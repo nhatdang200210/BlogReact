@@ -24,7 +24,7 @@ export default function Register() {
     
     <section className="auth-container">
         <form onSubmit={onSubmitHandle} className="auth-form">
-            <h2>Enter Your Account</h2>
+            <h2>Enter Your nnhat nhat nhat</h2>
             <div className="error-message">{errorMessage && `Error: ${errorMessage}`}</div>
         <input type="text"
           required 
