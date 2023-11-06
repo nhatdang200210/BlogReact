@@ -18,7 +18,8 @@ export default function Header() {
                 <li><span href="#" className="user-name">Hello, {name}</span></li>
                 <li><span onClick={() => {
                   localStorage.removeItem('isLoggedIn')
-                  localStorage.removeItem('name')
+                  localStorage.removeItem('name')  
+                  localStorage.removeItem('role')
                   navigate('/')
                 }}>Logout</span></li>
                 </span> : <span>

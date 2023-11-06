@@ -15,7 +15,8 @@ export default function Register() {
         const response = await axios.post("http://localhost:3001/api/v1/auth/login", { email: email, password: password});
         if(response.status === 200)
           localStorage.setItem('isLoggedIn', true)
-          localStorage.setItem('name', response.data.name) 
+          localStorage.setItem('name', response.data.name)  
+          localStorage.setItem('role', response.data.role)  
           navigate('/')
     } catch (error) {
         setErrorMessage(error.response.data.message);
