@@ -12,9 +12,9 @@
     transition: top 0.5s ease;
   }
   
-  .modal-container.show {
+  /* .modal-container.show {
     top: 0;
-  }
+  } */
   
   .modal {
     background: white;

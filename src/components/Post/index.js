@@ -29,19 +29,20 @@ export default function Post(props) {
         />
         <CardMedia 
             component='img'
-            height='200' 
-            width='100%' 
+            height='300' 
+            width='100%'  
             title={title}
             image={image}
+            
         />
         <CardContent>
-            <Typography variant='h5' color='textPrimary'>
+            <Typography variant='h6' color='textPrimary' style={{color:"blue", fontSize:"22px"}}>
                 {title}
             </Typography>
-            <Typography variant='body2' component="p" color='textSecondary'>
+            <Typography variant='h5' component="p" color='textPrimary' style={{fontSize:"15px"}}>
                 {content}
             </Typography>
-            <Typography variant='body2' component="p" color='textSecondary'>
+            <Typography variant='body2' component="p" color='textSecondary' style={{fontSize:"10px"}}>
                 Author: {author}
             </Typography>
         </CardContent>

@@ -72,7 +72,7 @@ export default function Form({ onSave }) {
           id="author"
           className="title author"
           placeholder="Author"
-          value={author}
+          value={author} 
           disabled="disabled"
           onChange={handleAuthorChange}
         />

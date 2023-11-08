@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react"; 
 import '../css/FormNews.css'
 
+
+
 function FormNews() {
   const [formData, setFormData] = useState({
     title: "",
@@ -52,40 +54,48 @@ function FormNews() {
     }
   };
   return (
-    <div className="form-news-bg">
+    <section className="form-news-bg">
       <form onSubmit={handleFormSubmit}>
-      <h3>Add Post</h3>
+      <h2 className="h2">CREATE NEWS</h2>
+
         <input
           type="text"
           name="title"
-          placeholder="Post title"
+          className="posttitle"
+          placeholder="Title"
           value={formData.title}
           onChange={handleInputChange}
         />
+
+        <textarea
+          name="content"
+          placeholder="News content"
+          className="contentnews"
+          value={formData.content}
+          onChange={handleInputChange}
+        />
+
         <input
           type="text"
           name="image"
+          className="imgadd"
           placeholder="Image URL"
           value={formData.image}
           onChange={handleInputChange}
         />
-        <textarea
-          name="content"
-          placeholder="Post content"
-          value={formData.content}
-          onChange={handleInputChange}
-        />
+
         <input
           type="text"
           name="author"
+          className="authornews"
           placeholder="Author"
-          value={formData.author}
           onChange={handleInputChange}
         />
-        <button type="submit">Save</button>
-        <button onClick={handleCloseModal}>Close</button>
+
+        <button type="submit" className="bnt">Save</button>
+        <button onClick={handleCloseModal} className="bntnew">Close</button>
       </form>
-    </div>
+    </section>
   );
 }
 
