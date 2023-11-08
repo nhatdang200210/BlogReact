@@ -34,9 +34,7 @@ export default function Form({ onSave }) {
         attachment,
       };
       await axios.post('http://localhost:3001/api/v1/posts', postData);
-      // Call the onSave function with the form data
       onSave();
-      // Reset the form fields
       setTitle('');
       setContent('');
       setAuthor('');
