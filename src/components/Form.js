@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import '../css/Form.css';
 import axios from 'axios';
 
+
 export default function Form({ onSave }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [author, setAuthor] = useState(localStorage.getItem('name') || '');
-  const [attachment, setAttachment] = useState('');
+  // const [attachment, setAttachment] = useState('');
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -20,9 +21,9 @@ export default function Form({ onSave }) {
     setAuthor(event.target.value);
   };
 
-  const handleAttachmentChange = (event) => {
-    setAttachment(event.target.value);
-  };
+  // const handleAttachmentChange = (event) => {
+  //   setAttachment(event.target.value);
+  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,14 +32,14 @@ export default function Form({ onSave }) {
         title,
         content,
         author,
-        attachment,
+        // attachment,
       };
       await axios.post('http://localhost:3001/api/v1/posts', postData);
       onSave();
       setTitle('');
       setContent('');
       setAuthor('');
-      setAttachment('');
+      // setAttachment('');
     } catch (error) {
       console.log(error);
     }
@@ -51,7 +52,7 @@ export default function Form({ onSave }) {
           type="text"
           name="title"
           id="title"
-          className="input"
+          className="title"
           placeholder="Title"
           value={title}
           onChange={handleTitleChange}
@@ -60,8 +61,8 @@ export default function Form({ onSave }) {
           type="text"
           name="content"
           id="content"
-          className="input"
-          placeholder="Content"
+          className="content"
+          placeholder="what's happening?"
           value={content}
           onChange={handleContentChange}
         />
@@ -69,12 +70,13 @@ export default function Form({ onSave }) {
           type="text"
           name="author"
           id="author"
-          className="input"
+          className="title author"
           placeholder="Author"
           value={author}
+          disabled="disabled"
           onChange={handleAuthorChange}
         />
-        <input
+        {/* <input
           type="text"
           name="attachment"
           id="attachment"
@@ -82,9 +84,9 @@ export default function Form({ onSave }) {
           placeholder="Attachment"
           value={attachment}
           onChange={handleAttachmentChange}
-        />
-        <button type="submit" className="btn">
-          Save
+        /> */}
+        <button type="submit" className="bnt">
+          POST
         </button>
       </form>
     </section>

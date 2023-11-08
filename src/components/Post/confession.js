@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Avatar,
   Card,
@@ -12,13 +13,18 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import CommentIcon from '@material-ui/icons/Comment';
 
-export default function Confession({ title, content, author, attachment}) {
+export default function Confession({ title, content, author}) {
   return (
     <Card style={{ marginBottom: '20px' }}>
-      <CardHeader
+      <CardHeader 
         avatar={<Avatar>{author[0]}</Avatar>}
         title={author}
         subheader='Apr 19, 2023'
+        style={{
+          color:'red',
+          
+        }}
+        
         action={
           <IconButton>
             <MoreVertIcon />
@@ -26,10 +32,10 @@ export default function Confession({ title, content, author, attachment}) {
         }
       />
       <CardContent>
-        <Typography variant='h5' color='textPrimary'>
+        <Typography variant='h6'  style={{color:'rgb(21, 88, 138)', fontSize:'20px'}}>
           {title}
         </Typography>
-        <Typography variant='body2' component='p' color='textSecondary'>
+        <Typography variant='h5' component='p' color='textPrimary' style={{fontSize:'14px'}}>
           {content}
         </Typography>
       </CardContent>
