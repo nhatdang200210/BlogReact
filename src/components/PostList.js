@@ -40,7 +40,7 @@ export default function PostList() {
             {news.map((item) => (
                 <Grid item xs={12} sm={6} key={item.id}>
                     <Post
-                        title={item.title}
+                        // title={item.title}
                         image={item.image}
                         content={item.content}
                         author={item.author}
