@@ -48,7 +48,8 @@ function FormNews() {
         content: "",
         author: "",
       });
-      setShowModal(false);
+      setShowModal(false); 
+      window.location.reload()
     } catch (error) {
       console.error("Error creating post:", error);
     }
