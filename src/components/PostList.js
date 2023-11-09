@@ -19,6 +19,20 @@ export default function PostList() {
         fetchNews();
     }, []); 
 
+    
+  const handleDeletePost = async (postId) => {
+    try {
+      // Gửi yêu cầu DELETE đến API endpoint để xóa bài post
+      await axios.delete(`http://localhost:3001/api/v1/posts/${postId}`);
+
+      // Cập nhật state để loại bỏ bài post đã xóa
+      const updatedNews = news.filter(item => item._id !== postId);
+      setNews(updatedNews);
+    } catch (error) {
+      console.error('Error deleting post:', error);
+    }
+  };
+
     console.log("news", news);
 
     return (
@@ -30,6 +44,7 @@ export default function PostList() {
                         image={item.image}
                         content={item.content}
                         author={item.author}
+                        onDelete={() => handleDeletePost(item.id)}
                     />
                 </Grid>
             ))}

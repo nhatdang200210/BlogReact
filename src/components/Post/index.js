@@ -9,12 +9,42 @@ import {
     IconButton,
     Typography,
 } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+// import MoreVertIcon from '@material-ui/icons/MoreVert';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import CommentIcon from '@material-ui/icons/Comment';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 export default function Post(props) {
-  const { title, image, content, author } = props;
+  const { title, image, content, author, onDelete } = props;
+  const role = localStorage.getItem('role');
+  const isAdmin = role === 'admin';
+
+
+// Logic cập nhật bài viết
+  const handleEdit = () => {
+    console.log('Sửa bài viết:', title);
+  };
+
+
+  const handleDeleteClick = async () => {
+    if (isAdmin) {
+        const confirmed = window.confirm('Bạn có chắc muốn xoá bài viết này không?');
+
+    if (confirmed) {
+      try {
+        // Gọi hàm onDelete được truyền qua prop
+        await onDelete();
+        console.log('Bài viết đã được xoá thành công');
+      } catch (error) {
+        console.error('Lỗi khi xoá bài viết:', error);
+      }
+    }
+  };
+}
+
+
+
 
   return (
     <Card>
@@ -22,9 +52,18 @@ export default function Post(props) {
             title={title}
             subheader={new Date().toLocaleDateString()} // Thay đổi ngày hiện tại thành ngày phù hợp
             action={
-                <IconButton>
-                    <MoreVertIcon /> 
-                </IconButton>
+                <div>
+                 {isAdmin && (
+                  <>
+                    <IconButton onClick={handleEdit}>
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton onClick={handleDeleteClick}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </>
+                )}
+              </div>
             }
         />
         <CardMedia 
@@ -65,4 +104,9 @@ Post.propTypes = {
   image: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
+
+//   isLoggedIn: PropTypes.bool.isRequired,
+//   isAdmin: PropTypes.bool.isRequired,
 };
