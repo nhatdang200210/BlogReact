@@ -1,7 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react"; 
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import '../css/FormNews.css';
 
 function FormNews() {
@@ -53,7 +51,6 @@ function FormNews() {
         author: "",
       });
       setShowModal(false);
-      toast.success("Successfully created news!"); // Show success toast  
       alert('Successfully created news!')
       setTimeout( ()=> {
         window.location.reload()
@@ -61,7 +58,6 @@ function FormNews() {
 
     } catch (error) {
       console.error("Error creating post:", error);
-      toast.error("Failed to create news."); // Show error toast
     }
   };
 
