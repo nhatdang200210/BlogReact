@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react"; 
-import '../css/FormNews.css'
-
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import '../css/FormNews.css';
 
 function FormNews() {
   const [formData, setFormData] = useState({
@@ -22,6 +22,7 @@ function FormNews() {
       }));
     }
   }, []);
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
@@ -29,9 +30,12 @@ function FormNews() {
       [name]: value,
     }));
   };
+
   const handleCloseModal = () => {
-    setShowModal(false);
+    setShowModal(false); 
+    window.location.reload();
   };
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -48,16 +52,23 @@ function FormNews() {
         content: "",
         author: "",
       });
-      setShowModal(false); 
-      window.location.reload()
+      setShowModal(false);
+      toast.success("Successfully created news!"); // Show success toast  
+      alert('Successfully created news!')
+      setTimeout( ()=> {
+        window.location.reload()
+      }, 3000)
+
     } catch (error) {
       console.error("Error creating post:", error);
+      toast.error("Failed to create news."); // Show error toast
     }
   };
+
   return (
     <section className="form-news-bg">
       <form onSubmit={handleFormSubmit}>
-      <h2 className="h2">CREATE NEWS</h2>
+        <h2 className="h2">CREATE NEWS</h2>
 
         <input
           type="text"
