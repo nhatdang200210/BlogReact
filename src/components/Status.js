@@ -24,7 +24,11 @@ export default function Status() {
   }, [getPosts]);
 
   const openModal = () => {
-    setIsModalOpen(true);
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+      setIsModalOpen(true);
+    } else {
+      alert('Vui lòng đăng nhập để có thể đăng bài');
+    }
   };
 
   const closeModal = () => {
