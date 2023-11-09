@@ -3,7 +3,8 @@ import Menu from './Menu';
 import Form from './Form';
 import { Grid, Modal } from '@material-ui/core';
 import Post from './Post/confession';
-import axios from 'axios';
+import axios from 'axios'; 
+import moment from 'moment';
 
 export default function Status() {
   const [posts, setPosts] = useState([]);
@@ -47,7 +48,8 @@ export default function Status() {
               title={post.title}
               author={post.author}
               content={post.content}
-              attachment={post.attachment}
+              attachment={post.attachment} 
+              createdAt={moment(post.createdAt).format('YYYY-MM-DD')}
             />
           ))}
         </Grid>

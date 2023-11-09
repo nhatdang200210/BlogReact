@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Grid } from '@material-ui/core';
 import axios from 'axios';
-import Post from './Post';
+import Post from './Post'; 
+import moment from 'moment';
 
 export default function PostList() {
     const [news, setNews] = useState([]);
@@ -44,7 +45,8 @@ export default function PostList() {
                         image={item.image}
                         content={item.content}
                         author={item.author}
-                        onDelete={() => handleDeletePost(item.id)}
+                        onDelete={() => handleDeletePost(item.id)}  
+                        createdAt={moment(item.createdAt).format('YYYY-MM-DD')}
                     />
                 </Grid>
             ))}

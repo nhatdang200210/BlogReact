@@ -15,8 +15,7 @@ import CommentIcon from '@material-ui/icons/Comment';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-export default function Post(props) {
-  const { title, image, content, author, onDelete } = props;
+export default function Post({ title, image, content, author, onDelete, createdAt }) {
   const role = localStorage.getItem('role');
   const isAdmin = role === 'admin';
 
@@ -50,7 +49,7 @@ export default function Post(props) {
     <Card>
         <CardHeader
             title={title}
-            subheader={new Date().toLocaleDateString()} // Thay đổi ngày hiện tại thành ngày phù hợp
+            subheader={createdAt} // Thay đổi ngày hiện tại thành ngày phù hợp
             action={
                 <div>
                  {isAdmin && (

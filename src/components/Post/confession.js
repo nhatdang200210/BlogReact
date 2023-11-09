@@ -13,13 +13,13 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import CommentIcon from '@material-ui/icons/Comment';
 
-export default function Confession({ title, content, author}) {
+export default function Confession({ title, content, author, createdAt}) {
   return (
     <Card style={{ marginBottom: '20px' }}>
       <CardHeader 
         avatar={<Avatar>{author[0]}</Avatar>}
         title={author}
-        subheader='Apr 19, 2023'
+        subheader={createdAt}
         style={{
           color:'red',
           
