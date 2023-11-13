@@ -14,6 +14,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import CommentIcon from '@material-ui/icons/Comment';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import '../../css/FormNews.css'
 
 export default function Post({ title, image, content, author, onDelete, createdAt }) {
   const role = localStorage.getItem('role');
@@ -48,7 +49,7 @@ export default function Post({ title, image, content, author, onDelete, createdA
   return (
     <Card>
         <CardHeader
-            title={title}
+            // title={title}
             subheader={createdAt} // Thay đổi ngày hiện tại thành ngày phù hợp
             action={
                 <div>
@@ -71,7 +72,7 @@ export default function Post({ title, image, content, author, onDelete, createdA
             width='100%'  
             title={title}
             image={image}
-            
+            className='post-img'
         />
         <CardContent>
             <Typography variant='h6' color='textPrimary' style={{color:"blue", fontSize:"22px"}}>

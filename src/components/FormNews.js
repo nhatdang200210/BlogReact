@@ -1,6 +1,8 @@
 import axios from "axios";
+import FileBase64 from 'react-file-base64';
 import { useEffect, useState } from "react"; 
 import '../css/FormNews.css';
+
 
 function FormNews() {
   const [formData, setFormData] = useState({
@@ -83,14 +85,23 @@ function FormNews() {
           onChange={handleInputChange}
         />
 
-        <input
+        {/* <input
           type="text"
           name="image"
           className="imgadd"
           placeholder="Image URL"
           value={formData.image}
           onChange={handleInputChange}
+        /> */}
+        <FileBase64
+          accept='image/*'
+          multiple={false}
+          type='file'
+          value={formData.image}
+          onDone={({ base64 }) => setFormData({ ...formData, image: base64 })}
         />
+
+
 
         <input
           type="text"
