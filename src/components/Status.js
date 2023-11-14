@@ -52,7 +52,8 @@ export default function Status() {
               content={post.content}
               attachment={post.attachment} 
               createdAt={moment(post.createdAt).format('YYYY-MM-DD')} 
-              liked={post.likeCount}
+              liked={post.likeCount} 
+              postId={post._id}
             />
           ))}
         </Grid>
