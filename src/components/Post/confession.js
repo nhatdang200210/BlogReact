@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 import {
   Avatar,
@@ -8,47 +8,62 @@ import {
   CardHeader,
   IconButton,
   Typography,
-} from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import CommentIcon from '@material-ui/icons/Comment';
+} from "@material-ui/core";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import CommentIcon from "@material-ui/icons/Comment";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 
-export default function Confession({ title, content, author, createdAt, liked}) {
+export default function Confession({
+  title,
+  content,
+  author,
+  createdAt,
+  liked,
+}) {
   return (
-    <Card style={{ marginBottom: '20px' }}>
-      <CardHeader 
+    <Card style={{ marginBottom: "20px" }}>
+      <CardHeader
         avatar={<Avatar>{author[0]}</Avatar>}
         title={author}
         subheader={createdAt}
         style={{
-          color:'red',
-          
+          color: "red",
         }}
-        
         action={
-          <IconButton>
-            <MoreVertIcon />
-          </IconButton>
+          <>
+            <EditIcon />
+            <DeleteIcon />
+          </>
         }
       />
       <CardContent>
-        <Typography variant='h6'  style={{color:'rgb(21, 88, 138)', fontSize:'20px'}}>
+        <Typography
+          variant="h6"
+          style={{ color: "rgb(21, 88, 138)", fontSize: "20px" }}
+        >
           {title}
         </Typography>
-        <Typography variant='h5' component='p' color='textPrimary' style={{fontSize:'14px'}}>
+        <Typography
+          variant="h5"
+          component="p"
+          color="textPrimary"
+          style={{ fontSize: "14px" }}
+        >
           {content}
         </Typography>
       </CardContent>
       <CardActions>
         <IconButton>
           <FavoriteIcon />
-          <Typography component='span' color='textSecondary'>
+          <Typography component="span" color="textSecondary">
             {liked}
           </Typography>
         </IconButton>
         <IconButton>
           <CommentIcon />
-          <Typography component='span' color='textSecondary'>
+          <Typography component="span" color="textSecondary">
             10 comment
           </Typography>
         </IconButton>
