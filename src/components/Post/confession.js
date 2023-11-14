@@ -32,7 +32,8 @@ export default function Confession({
   const [isEditing, setIsEditing] = useState(false); 
   const [editedTitle, setEditedTitle] = useState(title);
   const [editedContent, setEditedContent] = useState(content);
-  const [editedAuthor, setEditedAuthor] = useState(author); 
+  const [editedAuthor, setEditedAuthor] = useState(author);  
+  const [likeCount, setLikeCount] = useState(liked);
 
   console.log(postId);
 
@@ -42,6 +43,26 @@ export default function Confession({
 
   const handleEditClose = () => {
     setIsEditing(false);
+  }; 
+
+  const handleLikeClick = () => {
+    const updatedLikeCount = likeCount + 1;
+    setLikeCount(updatedLikeCount);
+  
+    axios
+      .put(`http://localhost:3001/api/v1/posts/${postId}`, {
+        likeCount: updatedLikeCount
+      })
+      .then(response => {
+        console.log("Like count updated:", response.data);
+      })  
+      .then(() => {
+        window.location.reload()
+      }) 
+
+      .catch(error => {
+        console.error("Error updating like count:", error);
+      });
   };
 
   const handleDeleteClick = () => {
@@ -119,7 +140,7 @@ export default function Confession({
         </Typography>
       </CardContent>
       <CardActions>
-        <IconButton>
+        <IconButton onClick={handleLikeClick}>
           <FavoriteIcon />
           <Typography component="span" color="textSecondary">
             {liked}
