@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../css/Form.css';
-import axios from 'axios';
+import axios from 'axios'; 
+import FileBase64 from "react-file-base64";
 
 
 export default function Form({ onSave }) {
@@ -21,9 +22,6 @@ export default function Form({ onSave }) {
     setAuthor(event.target.value);
   };
 
-  const handleAttachmentChange = (event) => {
-    setAttachment(event.target.value);
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -45,7 +43,9 @@ export default function Form({ onSave }) {
     } catch (error) {
       console.log(error);
     }
-  };
+  }; 
+
+  console.log("attachment", attachment);
 
   return (
     <section className="form-section">
@@ -78,15 +78,16 @@ export default function Form({ onSave }) {
           disabled="disabled"
           onChange={handleAuthorChange}
         />
-        <input
-          type="text"
-          name="attachment"
-          id="attachment"
-          className="input"
-          placeholder="Attachment"
-          value={attachment}
-          onChange={handleAttachmentChange}
-        />
+      <FileBase64
+        accept="image/*"
+        multiple={false}
+        type="file"
+        value={attachment.image}
+        onDone={({ base64 }) =>  
+          setAttachment(base64)
+        }
+      /> 
+      <p>{attachment.image}</p>
         <button type="submit" className="bnt">
           POST
         </button>

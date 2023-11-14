@@ -20,6 +20,7 @@ import CommentIcon from "@material-ui/icons/Comment";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import axios from "axios";
+import AvatarPost from "../AvatarPost";
 
 export default function Confession({
   title,
@@ -27,7 +28,8 @@ export default function Confession({
   author,
   createdAt,
   liked,
-  postId
+  postId, 
+  attachment
 }) {
   const [isEditing, setIsEditing] = useState(false); 
   const [editedTitle, setEditedTitle] = useState(title);
@@ -35,7 +37,6 @@ export default function Confession({
   const [editedAuthor, setEditedAuthor] = useState(author);  
   const [likeCount, setLikeCount] = useState(liked);
 
-  console.log(postId);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -106,7 +107,7 @@ export default function Confession({
   return (
     <Card style={{ marginBottom: "20px" }}>
       <CardHeader
-        avatar={<Avatar>{author[0]}</Avatar>}
+        avatar={<AvatarPost attachment={attachment}/>}
         title={author}
         subheader={createdAt}
         style={{
