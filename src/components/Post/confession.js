@@ -13,7 +13,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import CommentIcon from '@material-ui/icons/Comment';
 
-export default function Confession({ title, content, author, createdAt}) {
+export default function Confession({ title, content, author, createdAt, liked}) {
   return (
     <Card style={{ marginBottom: '20px' }}>
       <CardHeader 
@@ -43,7 +43,7 @@ export default function Confession({ title, content, author, createdAt}) {
         <IconButton>
           <FavoriteIcon />
           <Typography component='span' color='textSecondary'>
-            10 like
+            {liked}
           </Typography>
         </IconButton>
         <IconButton>

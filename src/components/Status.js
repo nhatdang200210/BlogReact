@@ -34,7 +34,9 @@ export default function Status() {
 
   const closeModal = () => {
     setIsModalOpen(false);
-  };
+  }; 
+
+  console.log("posts", posts);
 
   return (
     <div>
@@ -49,7 +51,8 @@ export default function Status() {
               author={post.author}
               content={post.content}
               attachment={post.attachment} 
-              createdAt={moment(post.createdAt).format('YYYY-MM-DD')}
+              createdAt={moment(post.createdAt).format('YYYY-MM-DD')} 
+              liked={post.likeCount}
             />
           ))}
         </Grid>

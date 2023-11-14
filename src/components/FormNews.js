@@ -1,8 +1,7 @@
 import axios from "axios";
-import FileBase64 from 'react-file-base64';
-import { useEffect, useState } from "react"; 
-import '../css/FormNews.css';
-
+import FileBase64 from "react-file-base64";
+import { useEffect, useState } from "react";
+import "../css/FormNews.css";
 
 function FormNews() {
   const [formData, setFormData] = useState({
@@ -11,7 +10,6 @@ function FormNews() {
     content: "",
     author: "",
   });
-  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const name = localStorage.getItem("name");
@@ -32,7 +30,6 @@ function FormNews() {
   };
 
   const handleCloseModal = () => {
-    setShowModal(false); 
     window.location.reload();
   };
 
@@ -52,12 +49,10 @@ function FormNews() {
         content: "",
         author: "",
       });
-      setShowModal(false);
-      alert('Successfully created news!')
-      setTimeout( ()=> {
-        window.location.reload()
-      }, 3000)
-
+      alert("Successfully created news!");
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
     } catch (error) {
       console.error("Error creating post:", error);
     }
@@ -65,56 +60,60 @@ function FormNews() {
 
   return (
     <section className="form-news-bg">
-      <form onSubmit={handleFormSubmit}>
-        <h2 className="h2">CREATE NEWS</h2>
+    <form onSubmit={handleFormSubmit}>
+      <h2 className="h2">CREATE NEWS</h2>
 
-        <input
-          type="text"
-          name="title"
-          className="posttitle"
-          placeholder="Title"
-          value={formData.title}
-          onChange={handleInputChange}
-        />
+      <input
+        type="text"
+        name="title"
+        className="posttitle"
+        placeholder="Title"
+        value={formData.title}
+        onChange={handleInputChange}
+      />
 
-        <textarea
-          name="content"
-          placeholder="News content"
-          className="contentnews"
-          value={formData.content}
-          onChange={handleInputChange}
-        />
+      <textarea
+        name="content"
+        placeholder="News content"
+        className="contentnews"
+        value={formData.content}
+        onChange={handleInputChange}
+      />
 
-        {/* <input
-          type="text"
-          name="image"
-          className="imgadd"
-          placeholder="Image URL"
-          value={formData.image}
-          onChange={handleInputChange}
-        /> */}
-        <FileBase64
-          accept='image/*'
-          multiple={false}
-          type='file'
-          value={formData.image}
-          onDone={({ base64 }) => setFormData({ ...formData, image: base64 })}
-        />
+      {/* <input
+    type="text"
+    name="image"
+    className="imgadd"
+    placeholder="Image URL"
+    value={formData.image}
+    onChange={handleInputChange}
+  /> */}
+      <FileBase64
+        accept="image/*"
+        multiple={false}
+        type="file"
+        value={formData.image}
+        onDone={({ base64 }) =>
+          setFormData({ ...formData, image: base64 })
+        }
+      />
 
+      <input
+        type="text"
+        name="author"
+        className="authornews"
+        placeholder="Author"
+        onChange={handleInputChange}
+      />
 
-
-        <input
-          type="text"
-          name="author"
-          className="authornews"
-          placeholder="Author"
-          onChange={handleInputChange}
-        />
-
-        <button type="submit" className="bnt">Save</button>
-        <button onClick={handleCloseModal} className="bntnew">Close</button>
-      </form>
-    </section>
+      <button type="submit" className="bnt">
+        Save
+      </button>
+      <button onClick={handleCloseModal} className="bntnew">
+        Close
+      </button>
+    </form>
+  </section>
   );
 }
 
