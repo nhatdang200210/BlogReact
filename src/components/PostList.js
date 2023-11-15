@@ -41,7 +41,8 @@ export default function PostList() {
         <Grid container spacing={2} alignItems='stretch'>
             {news.map((item) => (
                 <Grid item xs={12} sm={6} key={item.id}>
-                    <Post
+                    <Post 
+                        newId = {item._id}
                         title={item.title}
                         image={item.image}
                         content={item.content}
