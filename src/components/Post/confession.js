@@ -109,11 +109,19 @@ export default function Confession({
     <Card style={{ marginBottom: "20px" }}>
       <CardHeader
         avatar={<AvatarPost attachment={attachment} />}
-        title={author}
+        title={<Typography
+          style={{
+            color: "red",
+            fontSize:  "18px",
+            fontWeight: "bold" // Điều kiện dựa trên độ dài của tên tác giả
+          }}
+        >
+          {author}
+        </Typography>}
         subheader={createdAt}
-        style={{
-          color: "red"
-        }}
+        // style={{
+        //   color: "red"
+        // }}
         action={
           <>
             {(isAdmin || isOwner) && (

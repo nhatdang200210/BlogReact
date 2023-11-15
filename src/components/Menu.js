@@ -14,7 +14,7 @@ export default function Menu() {
                 <li><Link to = '/news'>NEWS</Link></li>
             </button>
             <button className="menu-buton">
-            <li><Link to = '/status'>POSTS</Link></li>
+            <li><Link to = '/status'>STATUS</Link></li>
             </button>
         </ul>
     </nav>
