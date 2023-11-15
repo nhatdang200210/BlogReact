@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Avatar,
   Card,
   CardActions,
   CardContent,
@@ -14,7 +13,6 @@ import {
   Button,
   TextField
 } from "@material-ui/core";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import CommentIcon from "@material-ui/icons/Comment";
 import EditIcon from "@material-ui/icons/Edit";
