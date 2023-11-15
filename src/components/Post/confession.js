@@ -108,12 +108,12 @@ export default function Confession({
   return (
     <Card style={{ marginBottom: "20px" }}>
       <CardHeader
-        avatar={<AvatarPost attachment={attachment} />}
+        avatar={<AvatarPost attachment={attachment} author={author}/>}
         title={<Typography
           style={{
             color: "red",
             fontSize:  "18px",
-            fontWeight: "bold" // Điều kiện dựa trên độ dài của tên tác giả
+            fontWeight: "bold"
           }}
         >
           {author}
