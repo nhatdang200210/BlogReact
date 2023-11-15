@@ -40,6 +40,13 @@ export default function Form({ onSave }) {
       setContent('');
       setAuthor('');
       setAttachment('');
+
+      alert("Successfully created status");
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+
     } catch (error) {
       console.log(error);
     }
