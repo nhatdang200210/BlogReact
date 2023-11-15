@@ -26,15 +26,18 @@ export default function Confession({
   author,
   createdAt,
   liked,
-  postId, 
+  postId,
   attachment
 }) {
-  const [isEditing, setIsEditing] = useState(false); 
+  const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
   const [editedContent, setEditedContent] = useState(content);
-  const [editedAuthor, setEditedAuthor] = useState(author);  
+  const [editedAuthor, setEditedAuthor] = useState(author);
   const [likeCount, setLikeCount] = useState(liked);
 
+  // Role Check
+  const isAdmin = localStorage.getItem("role") === "admin";
+  const isOwner = localStorage.getItem("name") === author;
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -42,43 +45,43 @@ export default function Confession({
 
   const handleEditClose = () => {
     setIsEditing(false);
-  }; 
+  };
 
   const handleLikeClick = () => {
     const updatedLikeCount = likeCount + 1;
     setLikeCount(updatedLikeCount);
-  
+
     axios
       .put(`http://localhost:3001/api/v1/posts/${postId}`, {
         likeCount: updatedLikeCount
       })
       .then(response => {
         console.log("Like count updated:", response.data);
-      })  
+      })
       .then(() => {
-        window.location.reload()
-      }) 
-
+        window.location.reload();
+      })
       .catch(error => {
         console.error("Error updating like count:", error);
       });
   };
 
   const handleDeleteClick = () => {
-    const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa không?"); 
-    console.log("postId", postId); 
-    if (confirmDelete) {
-      axios
-        .delete(`http://localhost:3001/api/v1/posts/${postId}`)
-        .then(response => {
-          console.log("Post deleted:", response.data);
-          setTimeout(() => window.location.reload(), 850);
-        })
-        .catch(error => {
-          console.error("Error deleting post:", error);
-        });
+    if (isAdmin || isOwner) {
+      const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa không?");
+      console.log("postId", postId);
+      if (confirmDelete) {
+        axios
+          .delete(`http://localhost:3001/api/v1/posts/${postId}`)
+          .then(response => {
+            console.log("Post deleted:", response.data);
+            setTimeout(() => window.location.reload(), 850);
+          })
+          .catch(error => {
+            console.error("Error deleting post:", error);
+          });
+      }
     }
-
   };
 
   const handleSaveChanges = () => {
@@ -86,15 +89,15 @@ export default function Confession({
       title: editedTitle,
       content: editedContent,
       author: editedAuthor
-    }; 
+    };
 
     console.log("editID", postId);
-  
+
     axios
       .put(`http://localhost:3001/api/v1/posts/${postId}`, editedPost)
       .then(response => {
         console.log("Post updated:", response.data);
-        setIsEditing(false); 
+        setIsEditing(false);
         setTimeout(() => window.location.reload(), 850);
       })
       .catch(error => {
@@ -105,7 +108,7 @@ export default function Confession({
   return (
     <Card style={{ marginBottom: "20px" }}>
       <CardHeader
-        avatar={<AvatarPost attachment={attachment}/>}
+        avatar={<AvatarPost attachment={attachment} />}
         title={author}
         subheader={createdAt}
         style={{
@@ -113,12 +116,16 @@ export default function Confession({
         }}
         action={
           <>
-            <IconButton onClick={handleEditClick}>
-              <EditIcon />
-            </IconButton>
-            <IconButton onClick={handleDeleteClick}>
-              <DeleteIcon />
-            </IconButton>
+            {(isAdmin || isOwner) && (
+              <>
+                <IconButton onClick={handleEditClick}>
+                  <EditIcon />
+                </IconButton>
+                <IconButton onClick={handleDeleteClick}>
+                  <DeleteIcon />
+                </IconButton>
+              </>
+            )}
           </>
         }
       />
@@ -155,23 +162,29 @@ export default function Confession({
 
       <Dialog open={isEditing} onClose={handleEditClose}>
         <DialogTitle>Edit Post</DialogTitle>
-        <DialogContent style={{ display: "flex", flexDirection: "column", minWidth: "600px" }}>
+        <DialogContent
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            minWidth: "600px"
+          }}
+        >
           <TextField
             label="Title"
             value={editedTitle}
-            onChange={(e) => setEditedTitle(e.target.value)}
+            onChange={e => setEditedTitle(e.target.value)}
             style={{ marginBottom: "10px" }}
           />
           <TextField
             label="Content"
             value={editedContent}
-            onChange={(e) => setEditedContent(e.target.value)}
+            onChange={e => setEditedContent(e.target.value)}
             style={{ marginBottom: "10px" }}
           />
           <TextField
             label="Author"
             value={editedAuthor}
-onChange={(e) => setEditedAuthor(e.target.value)}
+            onChange={e => setEditedAuthor(e.target.value)}
             style={{ marginBottom: "10px" }}
           />
         </DialogContent>
