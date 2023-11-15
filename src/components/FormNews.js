@@ -8,7 +8,7 @@ function FormNews() {
     title: "",
     image: "",
     content: "",
-    author: "",
+    author: localStorage.getItem("name"),
   });
 
   useEffect(() => {
@@ -102,7 +102,8 @@ function FormNews() {
         type="text"
         name="author"
         className="authornews"
-        placeholder="Author"
+        placeholder="Author" 
+        value={formData.author}
         onChange={handleInputChange}
       />
 
