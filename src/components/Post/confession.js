@@ -156,6 +156,7 @@ export default function Confession({
           component="p"
           color="textPrimary"
           style={{ fontSize: "14px" }}
+          className="post-content"
         >
           {content}
         </Typography>
