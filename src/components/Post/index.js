@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import {
@@ -39,12 +39,25 @@ export default function Post({
   const [newTitle, setNewTitle] = useState(title);
   const [newContent, setNewContent] = useState(content);
 
-  const [showAllContent, setShowAllContent] = useState(false); //show chi tiết content
-   // Nội dung được chia thành các dòng để hiển thị 3 dòng đầu tiên
-   const contentLines = content.split('\n').slice(0, 3).join('\n');
+ 
+  const [showFullContent, setShowFullContent] = useState(false);
+  const [isShrinked, setIsShrinked] = useState(false);
+  const contentRef = useRef(null);
 
-   const handleToggleContent = () => {
-    setShowAllContent(!showAllContent);
+  useEffect(() => {
+    // const contentHeight = contentRef.current.clientHeight;
+    // setShowFullContent(contentHeight <= 90);  // Giả sử kích thước tối đa là 90px
+    const contentHeight = contentRef.current.clientHeight;
+    setIsShrinked(contentHeight > 40); //kích thướclớn hơn sẽ hiện xem thêm
+    setShowFullContent(false);
+  }, []);
+
+  const toggleContent = () => {
+    setShowFullContent(!showFullContent);
+  };
+//tắt xem thêm
+  const shrinkContent = () => {
+    setShowFullContent(false);
   };
 
 
@@ -99,7 +112,7 @@ export default function Post({
   };
 
   return (
-    <Card>
+    <Card style={{ minHeight: '500px' }}> {/* Chiều cao cố định của khung bài post */}
       <CardHeader
         subheader={createdAt}
         action={
@@ -133,23 +146,27 @@ export default function Post({
         >
           {title}
         </Typography>
-        <Typography
-          variant="h5"
-          component="p"
-          color="textPrimary"
-          style={{ fontSize: "15px" }}
-          className="post-content "
-          
+        <div
+          ref={contentRef}
+          style={{
+            maxHeight: showFullContent ? 'none' : '70px', // giới hạn chiều cao
+            overflow: 'hidden',
+            color:"rgb(21, 84, 139)"
+          }}
+          className="post-content"
         >
-          {showAllContent ? content : contentLines}
-          {!showAllContent && <span>...</span>}
-          {/* Hiển thị nút Xem thêm chỉ khi có nội dung cần xem */}
-          {!showAllContent && content.split('\n').length > 3 && (
-            <Button onClick={handleToggleContent}>
-              Xem thêm
-            </Button>
-          )}
-        </Typography>
+          <p>{content}</p>
+        </div>
+        {isShrinked && !showFullContent && (
+          <Button onClick={toggleContent}>
+            Xem thêm
+          </Button>
+        )}
+        {showFullContent && (
+          <Button onClick={shrinkContent}>
+            Thu nhỏ
+          </Button>
+        )}
         <Typography
           variant="body2"
           component="p"
@@ -159,7 +176,7 @@ export default function Post({
           Author: {author}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions style={{marginTop: '10px' }}>
         <IconButton>
           <FavoriteIcon />
           <Typography component="span" color="textSecondary">
