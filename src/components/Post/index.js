@@ -13,7 +13,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  TextField,
+  // TextField,
   Button,
   TextareaAutosize,
 } from "@material-ui/core";
@@ -31,6 +31,8 @@ export default function Post({
   onDelete,
   createdAt,
   newId,
+  liked,
+  
 }) {
   const role = localStorage.getItem("role");
   const isAdmin = role === "admin";
@@ -38,11 +40,29 @@ export default function Post({
   const [open, setOpen] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const [newContent, setNewContent] = useState(content);
+  // const [likeCount, setLikeCount] = useState(0);
 
  
   const [showFullContent, setShowFullContent] = useState(false);
   const [isShrinked, setIsShrinked] = useState(false);
   const contentRef = useRef(null);
+
+
+  //like
+  // const handleLikeClick = async () => {
+  //   try {
+  //     const updatedLikeCount = likeCount + 1;
+  //     setLikeCount(updatedLikeCount);
+
+  //     await axios.put(`http://localhost:3001/api/v1/news/${newId}`, {
+  //       likeCount: updatedLikeCount,
+  //     });
+
+  //     // Không cần gọi lại dữ liệu ở đây, mà thực hiện qua useEffect bên dưới
+  //   } catch (error) {
+  //     console.error('Error updating like count:', error);
+  //   }
+  // };
 
   useEffect(() => {
     // const contentHeight = contentRef.current.clientHeight;
@@ -60,10 +80,12 @@ export default function Post({
     setShowFullContent(false);
   };
 
-
+//edit
   const handleEdit = () => {
     setOpen(true);
   };
+
+
 
   const handleTitleChange = (event) => {
     setNewTitle(event.target.value);
@@ -132,11 +154,12 @@ export default function Post({
       />
       <CardMedia
         component="img"
-        height="300"
-        width="100%"
+        height="400"
+        // width="90%"
         title={title}
         image={image}
-        className="post-img"
+        
+        // className="post-img"
       />
       <CardContent>
         <Typography
@@ -177,10 +200,10 @@ export default function Post({
         </Typography>
       </CardContent>
       <CardActions style={{marginTop: '10px' }}>
-        <IconButton>
+        <IconButton >
           <FavoriteIcon />
           <Typography component="span" color="textSecondary">
-            10 likes
+            12 likes
           </Typography>
         </IconButton>
         <IconButton>
@@ -238,4 +261,6 @@ Post.propTypes = {
   onDelete: PropTypes.func.isRequired,
   createdAt: PropTypes.string.isRequired,
   newId: PropTypes.string.isRequired,
+  liked: PropTypes.number,
+  // postId: PropTypes.string.isRequired,
 };
