@@ -52,7 +52,7 @@ function FormNews() {
       alert("Successfully created news!");
       setTimeout(() => {
         window.location.reload();
-      }, 3000);
+      }, 800);
     } catch (error) {
       console.error("Error creating post:", error);
     }

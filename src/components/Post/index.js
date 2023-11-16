@@ -15,6 +15,7 @@ import {
   DialogActions,
   TextField,
   Button,
+  TextareaAutosize,
 } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import CommentIcon from "@material-ui/icons/Comment";
@@ -38,6 +39,15 @@ export default function Post({
   const [newTitle, setNewTitle] = useState(title);
   const [newContent, setNewContent] = useState(content);
 
+  const [showAllContent, setShowAllContent] = useState(false); //show chi tiết content
+   // Nội dung được chia thành các dòng để hiển thị 3 dòng đầu tiên
+   const contentLines = content.split('\n').slice(0, 3).join('\n');
+
+   const handleToggleContent = () => {
+    setShowAllContent(!showAllContent);
+  };
+
+
   const handleEdit = () => {
     setOpen(true);
   };
@@ -58,6 +68,9 @@ export default function Post({
 
     try {
       await axios.put(`http://localhost:3001/api/v1/news/${newId}`, newData);
+
+      alert("Successfully edit Post of News");
+
       setTimeout(() => {
         window.location.reload();
       }, 850);
@@ -125,8 +138,17 @@ export default function Post({
           component="p"
           color="textPrimary"
           style={{ fontSize: "15px" }}
+          className="post-content "
+          
         >
-          {content}
+          {showAllContent ? content : contentLines}
+          {!showAllContent && <span>...</span>}
+          {/* Hiển thị nút Xem thêm chỉ khi có nội dung cần xem */}
+          {!showAllContent && content.split('\n').length > 3 && (
+            <Button onClick={handleToggleContent}>
+              Xem thêm
+            </Button>
+          )}
         </Typography>
         <Typography
           variant="body2"
@@ -152,29 +174,38 @@ export default function Post({
         </IconButton>
       </CardActions>
 
-      <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>Chỉnh sửa bài viết</DialogTitle>
-        <DialogContent>
+      <Dialog open={open} onClose={() => setOpen(false)} style={{ paddingBottom:"300px"}} >
+        <DialogTitle>Edit post</DialogTitle>
+        <DialogContent
+          style={{
+            minWidth:"600px",
+            
+            
+          }}
+        >
           {/* Hiển thị các trường chỉnh sửa */}
-          <TextField
-            label="Tiêu đề"
+          <TextareaAutosize
+            placeholder="Title"
             fullWidth
             value={newTitle}
             onChange={handleTitleChange}
+            className="posttitle title-edit"
           />
-          <TextField
-            label="Nội dung"
+          <TextareaAutosize
+            placeholder="Content"
             fullWidth
             value={newContent}
             onChange={handleContentChange}
+            className="contentnews content-edit"
+
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpen(false)} color="primary">
-            Hủy
+            Can
           </Button>
           <Button onClick={updatePost} color="primary">
-            Lưu
+            Save
           </Button>
         </DialogActions>
       </Dialog>

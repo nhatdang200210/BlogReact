@@ -102,6 +102,21 @@ form {
 }
 
 
+/* CSS form edit baif post trong new */
+.title-edit{
+    margin: 0;
+    padding: 0.5rem 1rem;
+    resize: none;
+}
+
+.content-edit{
+    margin-top: 1rem;
+    padding: 1rem;
+}
+
+.post-content {
+    white-space: pre-line;
+  }
 
 
 
