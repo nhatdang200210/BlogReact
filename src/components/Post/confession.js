@@ -101,6 +101,9 @@ export default function Confession({
       .then(response => {
         console.log("Post updated:", response.data);
         setIsEditing(false);
+
+        alert("Successfully edit status");
+
         setTimeout(() => window.location.reload(), 850);
       })
       .catch(error => {
