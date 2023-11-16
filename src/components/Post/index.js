@@ -112,7 +112,7 @@ export default function Post({
   };
 
   return (
-    <Card style={{ minHeight: '500px' }}> {/* Chiều cao cố định của khung bài post */}
+    <Card style={{ minHeight: '630px' }}> {/* Chiều cao cố định của khung bài post */}
       <CardHeader
         subheader={createdAt}
         action={
@@ -149,7 +149,7 @@ export default function Post({
         <div
           ref={contentRef}
           style={{
-            maxHeight: showFullContent ? 'none' : '70px', // giới hạn chiều cao
+            maxHeight: showFullContent ? 'none' : "75px", // giới hạn chiều cao
             overflow: 'hidden',
             color:"rgb(21, 84, 139)"
           }}
@@ -197,7 +197,7 @@ export default function Post({
           style={{
             minWidth:"600px",
             
-            
+
           }}
         >
           {/* Hiển thị các trường chỉnh sửa */}
@@ -219,7 +219,7 @@ export default function Post({
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpen(false)} color="primary">
-            Can
+            Cancel
           </Button>
           <Button onClick={updatePost} color="primary">
             Save

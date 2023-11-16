@@ -30,6 +30,12 @@ function FormNews() {
   };
 
   const handleCloseModal = () => {
+    setFormData({
+      title: "",
+      image: "",
+      content: "",
+      author: "",
+    });
     window.location.reload();
   };
 
@@ -56,6 +62,10 @@ function FormNews() {
     } catch (error) {
       console.error("Error creating post:", error);
     }
+  };
+
+  const handleImageUpload = (base64) => {
+    setFormData({ ...formData, image: base64 });
   };
 
   return (
@@ -93,9 +103,8 @@ function FormNews() {
         multiple={false}
         type="file"
         value={formData.image}
-        onDone={({ base64 }) =>
-          setFormData({ ...formData, image: base64 })
-        }
+        // onDone={({ base64 }) => setFormData({ ...formData, image: base64 })}
+        onDone={({ base64 }) => handleImageUpload(base64)}
       />
 
       <input
@@ -110,7 +119,7 @@ function FormNews() {
       <button type="submit" className="bnt">
         Save
       </button>
-      <button onClick={handleCloseModal} className="bntnew">
+      <button type="button" onClick={handleCloseModal} className="bntnew">
         Close
       </button>
     </form>
