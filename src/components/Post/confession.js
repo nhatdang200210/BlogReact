@@ -11,7 +11,8 @@ import {
   DialogContent,
   DialogActions,
   Button,
-  TextField
+  TextField,
+  TextareaAutosize
 } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import CommentIcon from "@material-ui/icons/Comment";
@@ -19,6 +20,8 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import axios from "axios";
 import AvatarPost from "../AvatarPost";
+import '../../css/Form.css';
+import '../../css/EditForm.css';
 
 export default function Confession({
   title,
@@ -109,7 +112,8 @@ export default function Confession({
     <Card style={{ marginBottom: "20px" }}>
       <CardHeader
         avatar={<AvatarPost attachment={attachment} author={author}/>}
-        title={<Typography
+        title={
+        <Typography
           style={{
             color: "red",
             fontSize:  "18px",
@@ -174,27 +178,35 @@ export default function Confession({
           style={{
             display: "flex",
             flexDirection: "column",
-            minWidth: "600px"
+            minwidth:"900px",
+            
           }}
         >
-          <TextField
+          <TextareaAutosize
             label="Title"
             value={editedTitle}
             onChange={e => setEditedTitle(e.target.value)}
-            style={{ marginBottom: "10px" }}
+            style={{ marginBottom: "10px"}}
+            className="title"
           />
-          <TextField
+          <TextareaAutosize
             label="Content"
             value={editedContent}
             onChange={e => setEditedContent(e.target.value)}
-            style={{ marginBottom: "10px" }}
+            style={{ marginBottom: "10px", width:"500px", paddingBottom:"20px" }}
+            className="content"
+            
           />
-          <TextField
+          <TextareaAutosize
             label="Author"
             value={editedAuthor}
             onChange={e => setEditedAuthor(e.target.value)}
-            style={{ marginBottom: "10px" }}
+            style={{ marginBottom: "10px"}}
+            disabled="disabled"
+            className=" author-info title"
+            
           />
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleEditClose} color="primary">
