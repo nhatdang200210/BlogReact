@@ -53,7 +53,8 @@ export default function Status() {
               attachment={post.attachment} 
               createdAt={moment(post.createdAt).format('YYYY-MM-DD')} 
               liked={post.likeCount} 
-              postId={post._id}
+              postId={post._id} 
+              postComments={post.comments.length} 
             />
           ))}
         </Grid>
