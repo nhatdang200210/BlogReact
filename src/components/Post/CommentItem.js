@@ -3,19 +3,24 @@ import moment from 'moment';
 import { IconButton, Typography } from '@material-ui/core';
 import Delete from '@material-ui/icons/Delete';
 
-export default function CommentItem({ comment, onDeleteComment }) {
+export default function CommentItem({ comment, onDeleteComment, author }) {
   const handleDelete = () => {
     onDeleteComment(comment._id);
   };
+
+  //check
+  const commentOwner = CommentItem.author === author;
 
   return (
     <div style={{ borderBottom: "1px solid #ddd" }}>
       <div style={{ display: "flex" }}>
         <Typography variant="h6" style={{ fontSize: "13px", marginRight: "20px" }}>
           {comment.author} 
-        <IconButton onClick={handleDelete} style={{marginBottom: "0px", color:"brown"}}>
-             <Delete />
-        </IconButton>
+        {commentOwner && (
+            <IconButton onClick={handleDelete} style={{marginBottom: "0px", color:"brown"}}>
+                <Delete />
+            </IconButton>
+        )}
         </Typography>
       </div>
       <div style={{ display: "flex" }}>

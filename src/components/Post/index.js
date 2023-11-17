@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import {
   Card,
-  CardActions,
+  // CardActions,
   CardContent,
   CardHeader,
   CardMedia,
@@ -17,8 +17,8 @@ import {
   Button,
   TextareaAutosize,
 } from "@material-ui/core";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import CommentIcon from "@material-ui/icons/Comment";
+// import FavoriteIcon from "@material-ui/icons/Favorite";
+// import CommentIcon from "@material-ui/icons/Comment";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import "../../css/FormNews.css";
@@ -31,7 +31,7 @@ export default function Post({
   onDelete,
   createdAt,
   newId,
-  liked,
+  // liked,
   
 }) {
   const role = localStorage.getItem("role");
@@ -199,7 +199,7 @@ export default function Post({
           Author: {author}
         </Typography>
       </CardContent>
-      <CardActions style={{marginTop: '10px' }}>
+      {/* <CardActions style={{marginTop: '10px' }}>
         <IconButton >
           <FavoriteIcon />
           <Typography component="span" color="textSecondary">
@@ -212,7 +212,7 @@ export default function Post({
             10 comments
           </Typography>
         </IconButton>
-      </CardActions>
+      </CardActions> */}
 
       <Dialog open={open} onClose={() => setOpen(false)} style={{ paddingBottom:"300px"}} >
         <DialogTitle>Edit post</DialogTitle>
