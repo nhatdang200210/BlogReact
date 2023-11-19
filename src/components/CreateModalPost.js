@@ -5,7 +5,6 @@ import { modalState$ } from './Selector'
 
 export default function CreateModalPost() {
     const {ishow} = useSelector(modalState$);
-    console.log({ishow})
     const body = <p>This is body</p>
     
   return (

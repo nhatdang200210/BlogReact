@@ -52,7 +52,6 @@ export default function Form({ onSave }) {
     }
   }; 
 
-  console.log("attachment", attachment);
 
   return (
     <section className="form-section">

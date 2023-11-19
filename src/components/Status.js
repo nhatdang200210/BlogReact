@@ -36,8 +36,6 @@ export default function Status() {
     setIsModalOpen(false);
   }; 
 
-  console.log("posts", posts);
-
   return (
     <div>
       <Menu />

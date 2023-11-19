@@ -13,7 +13,6 @@ export default function Register() {
     try {
         e.preventDefault();
         const response = await axios.post("http://localhost:3001/api/v1/auth/register", {name: name, email: email, password: password});
-        console.log(response.status);
         if(response.status === 200)
           setSucess('Sucess')
     } catch (error) {

@@ -47,7 +47,6 @@ function FormNews() {
         "http://localhost:3001/api/v1/news",
         formData
       );
-      console.log("Post created:", response.data);
       // Reset form data and close modal
       setFormData({
         title: "",

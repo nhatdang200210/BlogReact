@@ -124,7 +124,6 @@ export default function Post({
         try {
           await axios.delete(`http://localhost:3001/api/v1/news/${newId}`);
           await onDelete();
-          console.log("Bài viết đã được xoá thành công");
           window.location.reload();
         } catch (error) {
           console.error("Lỗi khi xoá bài viết:", error);

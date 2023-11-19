@@ -52,16 +52,20 @@ export default function Confession({
   const isOwner = localStorage.getItem("name") === author;
 
   const handleDeleteComment = (commentId) => {
-    axios
-      .delete(`http://localhost:3001/api/v1/comment/${commentId}`)
-      .then((response) => {
-        alert("Đã xóa thành công bình luận");
-        window.location.reload();
-      })
-      .catch((error) => {
-        // Xử lý lỗi khi gọi API (nếu cần)
-        console.log(error);
-      });
+    if (isOwner) {
+      axios
+        .delete(`http://localhost:3001/api/v1/comment/${commentId}`)
+        .then((response) => {
+          alert("Đã xóa thành công bình luận");
+          window.location.reload();
+        })
+        .catch((error) => {
+          // Xử lý lỗi khi gọi API (nếu cần)
+          console.log(error); 
+        });
+    } else { 
+      alert('Vui lòng không xóa bài đăng của người khác')
+    }
   };
 
   const handleCommentSubmit = () => {
@@ -104,7 +108,6 @@ export default function Confession({
         likeCount: updatedLikeCount,
       })
       .then((response) => {
-        console.log("Like count updated:", response.data);
       })
       .then(() => {
         window.location.reload();
@@ -117,12 +120,10 @@ export default function Confession({
   const handleDeleteClick = () => {
     if (isAdmin || isOwner) {
       const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa không?");
-      console.log("postId", postId);
       if (confirmDelete) {
         axios
           .delete(`http://localhost:3001/api/v1/posts/${postId}`)
           .then((response) => {
-            console.log("Post deleted:", response.data);
             setTimeout(() => window.location.reload(), 850);
           })
           .catch((error) => {
@@ -138,13 +139,9 @@ export default function Confession({
       content: editedContent,
       author: editedAuthor,
     };
-
-    console.log("editID", postId);
-
     axios
       .put(`http://localhost:3001/api/v1/posts/${postId}`, editedPost)
       .then((response) => {
-        console.log("Post updated:", response.data);
         setIsEditing(false);
 
         alert("Successfully edit status");
@@ -266,7 +263,10 @@ export default function Confession({
                   {moment(comment.createdAt).format("YYYY-MM-DD")}
                 </Typography>
               </div>
-              <button onClick={() => handleDeleteComment(comment._id)} style={{marginBottom: "12px"}}>
+              <button
+                onClick={() => handleDeleteComment(comment._id)}
+                style={{ marginBottom: "12px" }}
+              >
                 Delete
               </button>
             </div>

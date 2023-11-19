@@ -35,7 +35,6 @@ export default function PostList() {
     }
   };
 
-    console.log("news", news);
 
     return (
         <Grid container spacing={2} alignItems='stretch'>
