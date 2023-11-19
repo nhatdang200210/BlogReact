@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import moment from "moment";
+// import moment from "moment";
 import {
   Card,
   CardActions,
@@ -24,6 +24,7 @@ import axios from "axios";
 import AvatarPost from "../AvatarPost";
 import "../../css/Form.css";
 import "../../css/EditForm.css";
+import CommentItem from "./CommentItem";
 
 export default function Confession({
   title,
@@ -46,7 +47,13 @@ export default function Confession({
   const [commentAuthor, setCommentAuthor] = useState(
     localStorage.getItem("name")
   );
+  
+  //thiết lập state comment ban đầu
+  const [displayedComments] = useState(3);
 
+  //state theo dõi trạng thái mở rộng comment
+  const [areCommentsExpanded, setAreCommentsExpanded] = useState(false);
+  
   // Role Check
   const isAdmin = localStorage.getItem("role") === "admin";
   const isOwner = localStorage.getItem("name") === author;
@@ -78,9 +85,13 @@ export default function Confession({
       .post(`http://localhost:3001/api/v1/comment/${postId}`, commentData)
       .then((response) => {
         setIsCommenting(false);
+        alert("Successfully created comment!");
+      setTimeout(() => {
         window.location.reload();
+      }, 800);
         // Xử lý phản hồi thành công từ API (nếu cần)
       })
+      
       .catch((error) => {
         // Xử lý lỗi khi gọi API (nếu cần)
         console.log(error);
@@ -164,7 +175,13 @@ export default function Confession({
       .catch((error) => {
         console.error("Error fetching comments:", error);
       });
-  }, []); // [] chỉ chạy một lần khi component được tải lên
+  }, [postId]); // [] chỉ chạy một lần khi component được tải lên
+
+  // const commentsToShow = comments.slice(0, displayedComments);
+
+//logic để hiển thị bình luận dựa trên việc chúng đã được mở rộng hay chưa.
+  const commentsToShow = areCommentsExpanded ? comments : comments.slice(0, displayedComments);
+
 
   return (
     <Card style={{ marginBottom: "20px" }}>
@@ -225,17 +242,12 @@ export default function Confession({
           </Typography>
         </IconButton>
         <IconButton>
-          <CommentIcon />
-          <Typography component="span" color="textSecondary">
+          <CommentIcon onClick={handleCommentClick}/>
+          <Typography component="span" color="textSecondary" onClick={handleCommentClick}>
             {postComments} comments
           </Typography>
         </IconButton>
-        <IconButton onClick={handleCommentClick}>
-          <CommentIcon />
-          <Typography component="span" color="textSecondary">
-            Thêm bình luận
-          </Typography>
-        </IconButton>
+        
       </CardActions>
       <CardContent>
         <Typography
@@ -244,47 +256,38 @@ export default function Confession({
         >
           Bình luận:
         </Typography>
-        {comments.length > 0 ? (
-          comments.map((comment) => (
-            <div style={{ borderBottom: "1px solid #ddd" }}>
-              <div style={{ display: "flex" }}>
-                <Typography
-                  variant="h6"
-                  style={{ fontSize: "13px", marginRight: "20px" }}
-                >
-                  {comment.author}
-                </Typography>
-                <Typography style={{ fontSize: "13px" }}>
-                  {comment.content}
-                </Typography>
-              </div>
-              <div style={{ display: "flex" }}>
-                <Typography style={{ fontSize: "8px" }}>
-                  {moment(comment.createdAt).format("YYYY-MM-DD")}
-                </Typography>
-              </div>
-              <button
-                onClick={() => handleDeleteComment(comment._id)}
-                style={{ marginBottom: "12px" }}
-              >
-                Delete
-              </button>
-            </div>
+        {commentsToShow.length > 0 ? (
+          commentsToShow.map((comment) => (
+            <CommentItem
+              key={comment._id}
+              comment={comment}
+              onDeleteComment={handleDeleteComment}
+            />
           ))
         ) : (
-          // Hiển thị gì đó nếu không có comment
+
           <Typography>Chưa có comment.</Typography>
+          
         )}
+      
+        {/* Show "Xem Thêm" button */}
+        {comments.length > displayedComments && (
+          <Button onClick={() => setAreCommentsExpanded  (!areCommentsExpanded)}>
+            {areCommentsExpanded ? "Thu gọn" : "Xem thêm"}
+          </Button>
+        )}
+        
       </CardContent>
 
+{/* thêm comment */}
       {isCommenting && (
         <Dialog open={isCommenting} onClose={() => setIsCommenting(false)}>
-          <DialogTitle>Thêm bình luận</DialogTitle>
+          <DialogTitle>Add comment</DialogTitle>
           <DialogContent>
             <TextField
               label="Content"
               multiline
-              rows={4}
+              rows={5}
               variant="outlined"
               fullWidth
               value={commentContent}
@@ -297,6 +300,7 @@ export default function Confession({
               fullWidth
               value={commentAuthor}
               onChange={(event) => setCommentAuthor(event.target.value)}
+              disabled="disabled"
               style={{ marginBottom: "10px" }}
             />
           </DialogContent>
@@ -311,6 +315,7 @@ export default function Confession({
         </Dialog>
       )}
 
+{/* edit form */}
       <Dialog open={isEditing} onClose={handleEditClose}>
         <DialogTitle>Edit Post</DialogTitle>
         <DialogContent
