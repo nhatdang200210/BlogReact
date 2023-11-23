@@ -56,9 +56,20 @@ export default function Confession({
   
   // Role Check
   const isAdmin = localStorage.getItem("role") === "admin";
-  const isOwner = localStorage.getItem("name") === author;
 
-  const handleDeleteComment = (commentId) => {
+  console.log('localStorage.getItem("name")', localStorage.getItem("name"));
+  console.log("commentAuthor", commentAuthor);
+
+
+
+  const handleDeleteComment = (commentId, authorComment) => { 
+    console.log("commentId", commentId);
+    console.log("authorComment", authorComment); 
+    const authorLogin = localStorage.getItem("name") 
+    console.log("authorLogin", authorLogin); 
+
+    const isOwner = authorLogin === authorComment
+
     if (isOwner) {
       axios
         .delete(`http://localhost:3001/api/v1/comment/${commentId}`)
@@ -129,7 +140,7 @@ export default function Confession({
   };
 
   const handleDeleteClick = () => {
-    if (isAdmin || isOwner) {
+    if (isAdmin ) {
       const confirmDelete = window.confirm("Bạn có chắc chắn muốn xóa không?");
       if (confirmDelete) {
         axios
@@ -181,7 +192,7 @@ export default function Confession({
 
 //logic để hiển thị bình luận dựa trên việc chúng đã được mở rộng hay chưa.
   const commentsToShow = areCommentsExpanded ? comments : comments.slice(0, displayedComments);
-
+  console.log("commentsToShow", commentsToShow);
 
   return (
     <Card style={{ marginBottom: "20px" }}>
@@ -204,7 +215,7 @@ export default function Confession({
         // }}
         action={
           <>
-            {(isAdmin || isOwner) && (
+            {(isAdmin) && (
               <>
                 <IconButton onClick={handleEditClick}>
                   <EditIcon />
@@ -261,7 +272,7 @@ export default function Confession({
             <CommentItem
               key={comment._id}
               comment={comment}
-              onDeleteComment={handleDeleteComment}
+              onDeleteComment={() => (handleDeleteComment(comment._id, comment.author))}
             />
           ))
         ) : (
