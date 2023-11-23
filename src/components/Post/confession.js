@@ -62,15 +62,17 @@ export default function Confession({
 
 
 
-  const handleDeleteComment = (commentId, authorComment) => { 
+  const handleDeleteComment = (commentId, authorComment) => {
     console.log("commentId", commentId);
-    console.log("authorComment", authorComment); 
-    const authorLogin = localStorage.getItem("name") 
-    console.log("authorLogin", authorLogin); 
-
-    const isOwner = authorLogin === authorComment
-
-    if (isOwner) {
+    console.log("authorComment", authorComment);
+    const authorLogin = localStorage.getItem("name");
+    const userRole = localStorage.getItem("role"); // Retrieve user role from localStorage
+    console.log("authorLogin", authorLogin);
+  
+    const isOwner = authorLogin === authorComment;
+    const isAdmin = userRole === "admin"; // Check if user role is "admin"
+  
+    if (isOwner || isAdmin) {
       axios
         .delete(`http://localhost:3001/api/v1/comment/${commentId}`)
         .then((response) => {
@@ -79,10 +81,10 @@ export default function Confession({
         })
         .catch((error) => {
           // Xử lý lỗi khi gọi API (nếu cần)
-          console.log(error); 
+          console.log(error);
         });
-    } else { 
-      alert('Vui lòng không xóa bài đăng của người khác')
+    } else {
+      alert("Vui lòng không xóa bài đăng của người khác");
     }
   };
 
